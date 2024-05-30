@@ -3,7 +3,6 @@ class Stack {
         this.stack = [];
     }
 
-   
     push(e) {
         this.stack.push(e);
     }
@@ -12,23 +11,20 @@ class Stack {
         return this.size() === 0;
     }
 
-   
     pop() {
         if (this.empty()) {
-            return 'empty';
+            return "empty";
         }
         return this.stack.pop();
     }
 
     peek() {
         if (this.empty()) {
-            console.log('empty');
-            return;
+            return "empty";
         }
         return this.stack[this.size() - 1];
     }
 
-   
     size() {
         return this.stack.length;
     }
@@ -37,7 +33,6 @@ class Stack {
         console.log(this.stack);
     }
 
-    
     reverse() {
         if (!this.empty()) {
             const topElement = this.pop();
@@ -46,7 +41,6 @@ class Stack {
         }
     }
 
-   
     insertAtBottom(element) {
         if (this.empty()) {
             this.push(element);
@@ -58,18 +52,16 @@ class Stack {
     }
 }
 
+let myStack = new Stack();
+myStack.push(1);
+myStack.push(2);
+myStack.push(3);
+myStack.push(4);
+myStack.display(); 
+console.log(myStack.peek()); 
 
-let mystack = new Stack();
-mystack.push(1);
-mystack.push(3);
-mystack.push(4);
-mystack.push(5);
-mystack.push(6);
-mystack.push(7);
+myStack.pop();
+myStack.display();
 
-console.log(mystack.peek()); 
-console.log(mystack.peek()); 
-
-mystack.display(); 
-mystack.reverse();
-mystack.display(); 
+myStack.reverse();
+myStack.display(); 
