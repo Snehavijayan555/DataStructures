@@ -40,10 +40,7 @@ class LinkedListQueue {
         const value = this.front.value;
         this.front = this.front.next;
         this.size--;
-        if (this.isEmpty()) {
-            this.rear = null;
-        }
-        return value;
+       return value
     }
 
     
@@ -72,9 +69,9 @@ class LinkedListQueue {
    
     reverse() {
         if (!this.isEmpty()) {
-            const frontElement = this.dequeue();
+            const front = this.dequeue();
             this.reverse();
-            this.enqueue(frontElement);
+            this.enqueue(front);
         }
     }
 }
@@ -87,6 +84,7 @@ queue.enqueue(20);
 queue.enqueue(30);
 queue.enqueue(40);
 queue.enqueue(50);
+queue.print()
 
 console.log(queue.getSize()); 
 queue.print(); 

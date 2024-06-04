@@ -1,7 +1,7 @@
 let arr=[29,10,14,37,14] 
 function selectionsort(a){
-    for(let i=0;i<a.length;i++)
-    {let min=i
+    for(let i=0;i<a.length;i++){
+    let min=i
         for(let j=i+1;j<a.length;j++)
         {
             if(a[j]<a[min])
@@ -16,6 +16,8 @@ function selectionsort(a){
     }
     return a
 }
+let sortedArr = selectionsort(arr);
+console.log(sortedArr); 
 
 
 

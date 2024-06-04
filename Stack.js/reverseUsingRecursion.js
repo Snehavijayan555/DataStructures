@@ -31,28 +31,28 @@ class Stack {
         console.log(this.stack);
     }
 
-    // Reverse the stack using recursion
+    
     reverse() {
         if (this.isEmpty()) {
             return;
         }
-        const top = this.pop(); // Pop the top element
-        this.reverse(); // Recursively reverse the rest of the stack
-        this.enqueueAtBottom(top); // Enqueue the top element at the bottom
+        const top = this.pop(); 
+        this.reverse(); 
+        this.insertAtBottom(top); 
     }
 
    
-    enqueueAtBottom(element) {
+    insertAtBottom(element) {
         if (this.isEmpty()) {
             this.push(element);
         } else {
-            const top = this.pop(); // Pop the top element
-            this.enqueueAtBottom(element); // Recursively enqueue at bottom
-            this.push(top); // Push the top element back onto the stack
+            const top = this.pop(); 
+            this.insertAtBottom(element);
+            this.push(top); 
         }
     }
 }
-sage
+
 const stack = new Stack();
 stack.push(1);
 stack.push(2);

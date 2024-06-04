@@ -49,16 +49,17 @@
 
 
 // navya
-let arr=[29,10,14,37,14]
-function bubblesort(a){
-    for(let i=0;i<a.length;i++){
-        for(let j=0;j<a.length-i-1;j++)
-        {
-            if(a[j+1]<a[j])
-            {
-                [a[j+1],a[j]]=[a[j],a[j+1]]
+let arr = [29, 10, 14, 37, 14];
+
+function bubbleSort(a) {
+    for (let i = 0; i < a.length - 1; i++) { 
+        for (let j = 0; j < a.length - i - 1; j++) {
+            if (a[j + 1] < a[j]) {
+                [a[j + 1], a[j]] = [a[j], a[j + 1]]; 
             }
         }
     }
-    return a
+    return a;
 }
+
+console.log(bubbleSort(arr));
