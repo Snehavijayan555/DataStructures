@@ -78,7 +78,7 @@ class Heap {
     }
 }
 
-// Example usage:
+
 let myheap = new Heap();
 
 console.log(myheap.heap);
@@ -98,4 +98,4 @@ myheap.delete();
 myheap.delete();
 myheap.delete();
 console.log(myheap.heap);
-console.log(myheap.heapsort([45, 23, 177, 654, 34, 2]));
+
