@@ -143,8 +143,9 @@ bst.insert(3)
 bst.levelOrder()
 
 
-
-
-
 bst.delete(15)
 bst.levelOrder()
+
+
+console.log(bst.min(bst.root)); 
+console.log(bst.max(bst.root)); 
