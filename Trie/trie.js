@@ -1,108 +1,118 @@
-class Node{
-    constructor(){
-        this.keys=new Map()
-        this.end=false
+class Node {
+    constructor() {
+        this.keys = new Map();
+        this.end = false;
     }
-   
 }
 
-class Trie{
-constructor(){
-this.root=new Node()
-}
-add(word,node=this.root){
-    if(!word.length){
-     node.end=true  
-     return 
+class Trie {
+    constructor() {
+        this.root = new Node();
     }
-    
-        let c=word[0]
-        if(!node.keys.has(c)){
-          node.keys.set(c,new Node())
-         
+
+    add(word, node = this.root) {
+        if (!word.length) {
+            node.end = true;
+            return;
         }
-          return this.add(word.slice(1),node.keys.get(c))
-}
 
-isword(word,node=this.root){
-    if(!word.length ){
-       return node.end
+        let c = word[0];
+        if (!node.keys.has(c)) {
+            node.keys.set(c, new Node());
+        }
+        return this.add(word.slice(1), node.keys.get(c));
     }
-    let c=word[0]
-    if(!node.keys.has(c)){
-       return false
-    }
-    return this.isword(word.slice(1),node.keys.get(c))
- }
-printWords(node = this.root, word = '', arr = []) {
-    if (node.end) {
-        arr.push(word);
-    }
-    for (let [char, childNode] of node.keys) { //k,v
-        this.printWords(childNode, word + char, arr);
-    }
-    return arr;
-}
 
-
-delete(word, node = this.root, index = 0) {
-    if (index === word.length) {
-        if (!node.end) {
-           
+    isWord(word, node = this.root) {
+        if (!word.length) {
+            return node.end;
+        }
+        let c = word[0];
+        if (!node.keys.has(c)) {
             return false;
         }
-        node.end = false; 
-        return node.keys.size === 0; 
+        return this.isWord(word.slice(1), node.keys.get(c));
     }
 
-    let char = word[index];
-    if (!node.keys.has(char)) {
+    printWords(node = this.root, word = '', arr = []) {
+        if (node.end) {
+            arr.push(word);
+        }
+        for (let [char, childNode] of node.keys) {
+            this.printWords(childNode, word + char, arr);
+        }
+        return arr;
+    }
+
+    delete(word, node = this.root, index = 0) {
+        if (index === word.length) {
+            if (!node.end) {
+                return false;
+            }
+            node.end = false;
+            return node.keys.size === 0;
+        }
+
+        let char = word[index];
+        if (!node.keys.has(char)) {
+            return false;
+        }
+
+        let shouldDeleteNode = this.delete(word, node.keys.get(char), index + 1);
+
+        if (shouldDeleteNode) {
+            node.keys.delete(char);
+            return node.keys.size === 0 && !node.end;
+        }
+
         return false;
     }
 
-    let shouldDeleteNode = this.delete(word, node.keys.get(char), index + 1);
-
-    if (shouldDeleteNode) {
-        node.keys.delete(char);
-        return node.keys.size === 0 && !node.isEndOfWord;
+    prefixWords(pref) {
+        let node = this.findNode(pref);
+        if (!node) return [];
+        let array = [];
+        this.printWords(node, pref, array);
+        return array;
     }
 
-    return false;
-}
-
-prefixwords(pref) {
-    let node = this.findnode(pref);
-    if (!node) return [];
-    let array=[];
-    
-    this.printWords(node, pref, array);
-    return array;
-}
-
- findnode(pref){
-    let node=this.root
-    for(let i=0;i<pref.length;i++){
-       if(!node.keys.has(pref[i])){
-          return null
-       }
-       node=node.keys.get(pref[i])
+    findNode(pref) {
+        let node = this.root;
+        for (let i = 0; i < pref.length; i++) {
+            if (!node.keys.has(pref[i])) {
+                return null;
+            }
+            node = node.keys.get(pref[i]);
+        }
+        return node;
     }
-    return node
- }
-
 }
 
-let mytrie=new Trie()
-console.log(mytrie.root)
-mytrie.add("Navya",mytrie.root)
-mytrie.add("Navin",mytrie.root)
-mytrie.add("Ayan",mytrie.root)
-mytrie.add("A",mytrie.root)
-console.log(mytrie.root)
-console.log(mytrie.isword("Navya"))
-console.log(mytrie.printWords())
-console.log(mytrie.delete("Nav"))
-console.log(mytrie.printWords())
+// Testing the Trie with various names
+let myTrie = new Trie();
+console.log(myTrie.root);
 
-console.log(mytrie.prefixwords("A"))
-console.log(mytrie.prefixwords("Na"))
+myTrie.add("Navya");
+myTrie.add("Navin");
+myTrie.add("Ayan");
+myTrie.add("A");
+myTrie.add("Naveen");
+myTrie.add("Naveeta");
+myTrie.add("Aryan");
+myTrie.add("Anya");
+
+console.log(myTrie.root);
+console.log(myTrie.isWord("Navya")); // true
+console.log(myTrie.isWord("Navin")); // true
+console.log(myTrie.isWord("Ayan")); // true
+console.log(myTrie.isWord("A")); // true
+console.log(myTrie.isWord("Nav")); // false
+console.log(myTrie.isWord("Naveen")); // true
+
+console.log(myTrie.printWords()); // ["A", "Ayan", "Anya", "Aryan", "Naveen", "Naveeta", "Navin", "Navya"]
+
+console.log(myTrie.delete("Navya")); // true
+console.log(myTrie.printWords()); // ["A", "Ayan", "Anya", "Aryan", "Naveen", "Naveeta", "Navin"]
+
+console.log(myTrie.prefixWords("A")); // ["A", "Ayan", "Anya", "Aryan"]
+console.log(myTrie.prefixWords("Nav")); // ["Naveen", "Naveeta", "Navin"]
